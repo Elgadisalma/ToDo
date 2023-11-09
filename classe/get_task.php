@@ -1,32 +1,29 @@
-<?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-?>
 
 <?php
-require_once 'config.php';
+function getTasks() {
+    require_once 'config.php';
+    $tasks = [];
+    
+    
+        $sql = "SELECT * FROM tasks  ;";
+        $result = $link->query($sql);
+        if(mysqli_num_rows($result) > 0){
+            while ($row = $result->fetch_assoc()) {
+                $tasks[] = $row;
+            }
+        }else {
+            echo "No tasks found.";
+        }
+        mysqli_free_result($result);
+        mysqli_close($link);
 
-$sql = "SELECT * FROM tasks";
-$result = $link->query($sql);
+    
+    return $tasks;
 
-$donnees_des_taches = array(); 
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        // Ajoute les données de chaque tâche au tableau
-        $donnees_des_taches[] = array(
-            'nom_tache' => $row['nom_tache'],
-            'description_tache' => $row['description_tache'],
-            'deadline' => $row['deadline'],
-            'etat_tache' => $row['etat_tache'],
-            'id' => $row['id']
-        );
-    }
 }
 
-$link->close();
+// $tas = getTasks();
+// foreach($tas as $t){
+//     echo $t['nom_tache'];
+// }
 
-// Envoie les données au format JSON
-header('Content-Type: application/json');
-echo json_encode($donnees_des_taches);
-?>
