@@ -1,32 +1,32 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
 
+<?php
 require_once 'config.php';
 
 $sql = "SELECT * FROM tasks";
 $result = $link->query($sql);
 
+$donnees_des_taches = array(); 
+
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . $row['nom_tache'] . "</td>";
-        echo "<td>" . $row['description_tache'] . "</td>";
-        echo "<td>" . $row['deadline'] . "</td>";
-        echo "<td>" . $row['etat_tache'] . "</td>";
-        echo "<td>
-                <button class='btn btn-warning btn-sm' onclick='editTask(" . $row['id'] . ")'>
-                    <i class='fas fa-edit'></i> Modifier
-                </button>
-                <button class='btn btn-danger btn-sm' onclick='deleteTask(" . $row['id'] . ")'>
-                    <i class='fas fa-trash'></i> Supprimer
-                </button>
-            </td>";
-        echo "</tr>";
+        // Ajoute les données de chaque tâche au tableau
+        $donnees_des_taches[] = array(
+            'nom_tache' => $row['nom_tache'],
+            'description_tache' => $row['description_tache'],
+            'deadline' => $row['deadline'],
+            'etat_tache' => $row['etat_tache'],
+            'id' => $row['id']
+        );
     }
-} else {
-    echo "<tr><td colspan='5'>Aucune tâche trouvée</td></tr>";
 }
 
 $link->close();
+
+// Envoie les données au format JSON
+header('Content-Type: application/json');
+echo json_encode($donnees_des_taches);
 ?>
