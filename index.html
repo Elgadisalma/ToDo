@@ -1,9 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ToDo list</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>To-Do List</title>
 </head>
 <body>
+
+<div class="container mt-5">
+    <h2>Add Task</h2>
     
+    <form id="taskForm" action="./classe/save_task.php" method="post">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Nom de la tâche" aria-label="Nom de la tâche" id="taskName" name="taskName">
+        </div>
+
+        <div class="input-group mb-3">
+            <textarea class="form-control" placeholder="Description de la tâche" aria-label="Description de la tâche" id="taskDescription" name="taskDescription"></textarea>
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="date" class="form-control" id="taskDeadline" name="taskDeadline">
+        </div>
+
+        <div class="input-group mb-3">
+            <button class="btn btn-outline-secondary" type="submit">Ajouter</button>
+        </div>
+    </form>
+
+    <!-- La liste des tâches irait ici -->
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+    // Tu peux toujours garder la fonction addTask() si tu en as besoin pour d'autres manipulations côté client
+</script>
 </body>
 </html>
