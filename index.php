@@ -34,6 +34,19 @@
             <tr>
                 <td><?php echo $task['nom_tache'] ;?></td>
                 <td><?php echo $task['description_tache'] ;?> </td>
+                <td><?php echo $task['deadline'] ;?> </td>
+                <td><?php echo $task['etat_tache'] ;?> </td>
+                
+                <td>
+                <button class="btn btn-warning btn-sm" onclick="editTask(${task.id})">
+                    <i class="fas fa-edit"></i> Modifier
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">
+                <i class="fas fa-trash"></i> Supprimer
+                </button>
+
+
+            </td>
             </tr>
         <?php } ?>
         </tbody>
