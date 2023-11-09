@@ -51,8 +51,10 @@ function addTasksToTable(tasks) {
                     <i class="fas fa-edit"></i> Modifier
                 </button>
                 <button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">
-                    <i class="fas fa-trash"></i> Supprimer
+                <i class="fas fa-trash"></i> Supprimer
                 </button>
+
+
             </td>
         `;
 
@@ -66,6 +68,25 @@ fetch('./classe/get_task.php')
     .catch(error => console.error('Erreur lors de la récupération des tâches:', error));
 
 </script>
+
+<script>
+    function deleteTask(taskId) {
+    fetch(`./classe/delete_task.php?id=${taskId}`, {
+        method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log("Tâche supprimée avec succès!");
+        } else {
+            console.error("Erreur lors de la suppression de la tâche:", data.error);
+        }
+    })
+    .catch(error => console.error('Erreur lors de la suppression de la tâche:', error));
+}
+
+</script>
+
 
 </body>
 </html>
