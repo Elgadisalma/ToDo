@@ -12,7 +12,9 @@ $taskDeadline = $_POST['taskDeadline'];
 $sql = "INSERT INTO tasks (nom_tache, description_tache, deadline) VALUES ('$taskName', '$taskDescription', '$taskDeadline')";
 
 if ($link->query($sql) === TRUE) {
-    echo "La tâche a été ajoutée avec succès!";
+    // echo "La tâche a été ajoutée avec succès!";
+    header("location:../index.html?task=added_successfully");
+    exit();
 } else {
     echo "Erreur: " . $link->error;
 }
