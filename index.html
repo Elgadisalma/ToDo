@@ -4,32 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <title>To-Do List</title>
 </head>
 <body>
 
 <div class="container mt-5">
-    <h2>Add Task</h2>
-    
-    <form id="taskForm" action="./classe/save_task.php" method="post">
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Nom de la tâche" aria-label="Nom de la tâche" id="taskName" name="taskName">
-        </div>
+    <h2>To-Do List</h2>
 
-        <div class="input-group mb-3">
-            <textarea class="form-control" placeholder="Description de la tâche" aria-label="Description de la tâche" id="taskDescription" name="taskDescription"></textarea>
-        </div>
+    <a href="add_task.html"><button>Add Task</button></a>
 
-        <div class="input-group mb-3">
-            <input type="date" class="form-control" id="taskDeadline" name="taskDeadline">
-        </div>
-
-        <div class="input-group mb-3">
-            <button class="btn btn-outline-secondary" type="submit">Ajouter</button>
-        </div>
-    </form>
-
-    <!-- La liste des tâches irait ici -->
+    <!-- Tableau pour afficher les tâches -->
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>État</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Ici seront affichées les lignes de tâches -->
+        </tbody>
+    </table>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -37,7 +36,47 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script>
-    // Tu peux toujours garder la fonction addTask() si tu en as besoin pour d'autres manipulations côté client
+    // Fonction pour ajouter une ligne de tâche au tableau (exemple)
+    function addTaskToTable(task) {
+        var tableBody = document.querySelector('tbody');
+
+        var row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${task.name}</td>
+            <td>${task.description}</td>
+            <td>${task.deadline}</td>
+            <td>${task.status}</td>
+            <td>
+                <button class="btn btn-warning btn-sm" onclick="editTask(${task.id})">
+                    <i class="fas fa-edit"></i> Modifier
+                </button>
+                <button class="btn btn-danger btn-sm" onclick="deleteTask(${task.id})">
+                    <i class="fas fa-trash"></i> Supprimer
+                </button>
+            </td>
+        `;
+
+        tableBody.appendChild(row);
+    }
+
+    // Fonction fictive pour simuler l'édition d'une tâche
+    function editTask(taskId) {
+        alert("Fonction d'édition de la tâche avec l'ID " + taskId);
+    }
+
+    // Fonction fictive pour simuler la suppression d'une tâche
+    function deleteTask(taskId) {
+        alert("Fonction de suppression de la tâche avec l'ID " + taskId);
+    }
+
+    // Exemple d'ajout de tâches au tableau
+    var sampleTasks = [
+        { id: 1, name: 'Tâche 1', description: 'Description de la tâche 1', deadline: '2023-11-10', status: 'To-Do' },
+        { id: 2, name: 'Tâche 2', description: 'Description de la tâche 2', deadline: '2023-11-15', status: 'In Progress' },
+        { id: 3, name: 'Tâche 3', description: 'Description de la tâche 3', deadline: '2023-11-20', status: 'Done' }
+    ];
+
+    sampleTasks.forEach(addTaskToTable);
 </script>
 </body>
 </html>
