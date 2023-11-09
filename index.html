@@ -11,10 +11,9 @@
 
 <div class="container mt-5">
     <h2>To-Do List</h2>
-    <form action="./classe/get_task.php" method="post"></form>
+
     <a href="add_task.html"><button>Add Task</button></a>
 
-    <!-- Tableau pour afficher les tâches -->
     <table class="table mt-3">
         <thead>
             <tr>
@@ -25,11 +24,10 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
-            <!-- Ici seront affichées les lignes de tâches -->
+        <tbody id="taskTableBody">
+            <!-- Les tâches seront ajoutées ici dynamiquement -->
         </tbody>
     </table>
-</form>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
@@ -37,16 +35,17 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <script>
-    // Fonction pour ajouter une ligne de tâche au tableau (exemple)
-    function addTaskToTable(task) {
-        var tableBody = document.querySelector('tbody');
+    // Fonction pour ajouter les tâches au tableau
+function addTasksToTable(tasks) {
+    var tableBody = document.getElementById('taskTableBody');
 
+    tasks.forEach(task => {
         var row = document.createElement('tr');
         row.innerHTML = `
-            <td>${task.name}</td>
-            <td>${task.description}</td>
+            <td>${task.nom_tache}</td>
+            <td>${task.description_tache}</td>
             <td>${task.deadline}</td>
-            <td>${task.status}</td>
+            <td>${task.etat_tache}</td>
             <td>
                 <button class="btn btn-warning btn-sm" onclick="editTask(${task.id})">
                     <i class="fas fa-edit"></i> Modifier
@@ -58,26 +57,15 @@
         `;
 
         tableBody.appendChild(row);
-    }
+    });
+}
 
-    // Fonction fictive pour simuler l'édition d'une tâche
-    function editTask(taskId) {
-        alert("Fonction d'édition de la tâche avec l'ID " + taskId);
-    }
+fetch('./classe/get_task.php')
+    .then(response => response.json())
+    .then(data => addTasksToTable(data)) 
+    .catch(error => console.error('Erreur lors de la récupération des tâches:', error));
 
-    // Fonction fictive pour simuler la suppression d'une tâche
-    function deleteTask(taskId) {
-        alert("Fonction de suppression de la tâche avec l'ID " + taskId);
-    }
-
-    // Exemple d'ajout de tâches au tableau
-    var sampleTasks = [
-        { id: 1, name: 'Tâche 1', description: 'Description de la tâche 1', deadline: '2023-11-10', status: 'To-Do' },
-        { id: 2, name: 'Tâche 2', description: 'Description de la tâche 2', deadline: '2023-11-15', status: 'In Progress' },
-        { id: 3, name: 'Tâche 3', description: 'Description de la tâche 3', deadline: '2023-11-20', status: 'Done' }
-    ];
-
-    sampleTasks.forEach(addTaskToTable);
 </script>
+
 </body>
 </html>
