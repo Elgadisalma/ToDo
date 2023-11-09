@@ -7,8 +7,6 @@ define('DB_NAME','todo list');
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
 if($link == false){
-    mysqli_connect_error();
     die("Error: " . mysqli_connect_error());
 }
-
 ?>
