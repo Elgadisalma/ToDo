@@ -24,8 +24,18 @@
                 <th>Actions</th>
             </tr>
         </thead>
+        
         <tbody id="taskTableBody">
-            <!-- Les tâches seront ajoutées ici dynamiquement -->
+        <?php
+            include_once './classe/get_task.php';
+            $tasks = getTasks();
+            foreach ($tasks as $task) {
+        ?>
+            <tr>
+                <td><?php echo $task['nom_tache'] ;?></td>
+                <td><?php echo $task['description_tache'] ;?> </td>
+            </tr>
+        <?php } ?>
         </tbody>
     </table>
 </div>
